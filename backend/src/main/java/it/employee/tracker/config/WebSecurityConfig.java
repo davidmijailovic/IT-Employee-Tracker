@@ -86,7 +86,7 @@ public class WebSecurityConfig {
                 //.antMatchers("/h2-console/**").permitAll()	// /h2-console/** ako se koristi H2 baza)
                 .requestMatchers("/signup").permitAll()
                 .requestMatchers("/login").permitAll()
-                .requestMatchers("/user/getAll").permitAll()
+                .requestMatchers("/user/**").permitAll()
 
                 // za svaki drugi zahtev korisnik mora biti autentifikovan
                 .anyRequest().authenticated().and()
