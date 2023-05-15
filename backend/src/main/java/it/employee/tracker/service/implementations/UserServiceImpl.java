@@ -51,13 +51,13 @@ public class UserServiceImpl implements UserService {
         user.setTitle(userDTO.getTitle());
         String salt = generateSalt();
         String saltedPassword = salt + userDTO.getPassword();
-        String hashedPassword = passwordEncoder.encode(saltedPassword);
+        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
         user.setPassword(hashedPassword);
         user.setSalt(salt);
         List<Role> roles = roleService.findByName("ROLE_"+userDTO.getAccountType().toString());
         user.setRoles(roles);
-        user.setEnabled(false);
-        user.setApproved(false);
+        user.setEnabled(true);
+        user.setApproved(true);
         return user;
     }
 
