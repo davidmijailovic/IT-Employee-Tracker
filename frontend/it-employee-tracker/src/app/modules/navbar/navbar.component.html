@@ -1,12 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-success">
-  <a class="navbar-brand" style="margin-left: 2%; color: beige" href="#">It employee tracker</a>
-  <div class="navbar-nav justify-content-center">
-    <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/login']"
-      style="font-size: 18px; color: beige">Login</a>
-    <a class="nav-item nav-link" routerLinkActive="active" style="font-size: 18px; color: beige">My certificates</a>
-    <a class="nav-item nav-link" routerLinkActive="active"
-      style="font-size: 18px; margin-left: 1%; color: beige">Generate Certificate</a>
-    <a class="nav-item nav-link" routerLinkActive="active"
-      style="font-size: 18px; margin-left: 1%; color: beige">Generate Root Certificate</a>
+  <a class="navbar-brand" href="#">It Employee Tracker</a>
+  <div class="nav-right">
+    <a class="nav-item nav-link" [routerLink]="['/login']" routerLinkActive="active" *ngIf="!isLoggedIn">Login</a>
+    <a class="nav-item nav-link" [routerLink]="['/register']" routerLinkActive="active" *ngIf="!isLoggedIn">Register</a>
+    <a class="nav-item nav-link" [routerLink]="['/']" routerLinkActive="active" *ngIf="isLoggedIn"
+      (click)="logout()">Logout</a>
   </div>
 </nav>

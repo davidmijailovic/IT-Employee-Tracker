@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
         user.setAddress(address);
         user.setTitle(userDTO.getTitle());
         String salt = generateSalt();
-        String saltedPassword = salt + userDTO.getPassword();
-        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
+        String saltedPassword = userDTO.getPassword().concat(salt);
+        String hashedPassword = passwordEncoder.encode(saltedPassword);
         user.setPassword(hashedPassword);
         user.setSalt(salt);
         List<Role> roles = roleService.findByName("ROLE_"+userDTO.getAccountType().toString());
