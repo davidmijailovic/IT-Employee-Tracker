@@ -1,6 +1,5 @@
 package it.employee.tracker.service.implementations;
 
-import it.employee.tracker.model.Seniority;
 import it.employee.tracker.model.SoftwareEngineer;
 import it.employee.tracker.model.dto.UserDTO;
 import it.employee.tracker.repository.SoftwareEngineerRepository;
@@ -8,7 +7,6 @@ import it.employee.tracker.service.interfaces.SoftwareEngineerService;
 import it.employee.tracker.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
 
 @Service
 public class SoftwareEngineerServiceImpl implements SoftwareEngineerService {
@@ -22,5 +20,10 @@ public class SoftwareEngineerServiceImpl implements SoftwareEngineerService {
         engineer = (SoftwareEngineer) userService.registerUser(engineer, userDTO);
         softwareEngineerRepository.save(engineer);
         return engineer;
+    }
+
+    @Override
+    public SoftwareEngineer findById(Long id) {
+        return softwareEngineerRepository.findById(id).get();
     }
 }

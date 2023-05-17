@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,4 @@ export class AuthService {
     const token = this.getToken();
     return !!token;
   }
-}
-function jwtDecode(arg0: string): any {
-  throw new Error('Function not implemented.');
 }

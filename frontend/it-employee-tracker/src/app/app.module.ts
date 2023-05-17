@@ -11,12 +11,14 @@ import { NavbarComponent } from './modules/navbar/navbar.component';
 import { RegisterComponent } from './modules/register/register.component';
 import { ToastrModule } from 'ngx-toastr';
 import { JwtInterceptor, JwtModule } from '@auth0/angular-jwt';
+import { ProfileComponent } from './modules/profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NavbarComponent,
     RegisterComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserAnimationsModule,

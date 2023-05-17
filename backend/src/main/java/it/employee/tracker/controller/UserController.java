@@ -1,34 +1,81 @@
 package it.employee.tracker.controller;
 
 
+import it.employee.tracker.model.SoftwareEngineer;
 import it.employee.tracker.model.User;
+import it.employee.tracker.model.dto.SkillDTO;
 import it.employee.tracker.model.dto.UserDTO;
+import it.employee.tracker.model.response.UserResponse;
 import it.employee.tracker.service.interfaces.AdministratorService;
+import it.employee.tracker.service.interfaces.SoftwareEngineerService;
 import it.employee.tracker.service.interfaces.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static it.employee.tracker.controller.AuthenticationController.ValidateRequest;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
     private AdministratorService administratorService;
+    @Autowired
+    private SoftwareEngineerService softwareEngineerService;
 
     @GetMapping("getAll")
     public List<User> getUsers() {
         return userService.getAll();
+    }
+
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('SOFTWARE_ENGINEER', 'ADMINISTRATOR', 'ROLE_HR_MANAGER', 'ROLE_PROJECT_MANAGER')")
+    public ResponseEntity<?> editUser(@PathVariable long id, @RequestBody UserResponse editInfo) {
+        User forEdit = userService.findById(id);
+        if(forEdit == null)
+            return new ResponseEntity<>("User not found!", HttpStatus.NOT_FOUND);
+        User editedUser = userService.editUser(forEdit, editInfo, id);
+        return new ResponseEntity<>(editedUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('SOFTWARE_ENGINEER', 'ADMINISTRATOR', 'ROLE_HR_MANAGER', 'ROLE_PROJECT_MANAGER')")
+    public ResponseEntity<UserResponse> findById(@PathVariable("id") Long id){
+        try {
+            User user = userService.findById(id);
+            List<SkillDTO> skillDTOs = new ArrayList<>();
+            if(user.getRoles().get(0).getName().equals("ROLE_SOFTWARE_ENGINEER")) {
+                SoftwareEngineer softwareEngineer = softwareEngineerService.findById(id);
+                skillDTOs = userService.mapSkillToSkillDto(softwareEngineer);
+            }
+            UserResponse responseUser = new UserResponse(
+                    user.getName(),
+                    user.getSurname(),
+                    user.getEmail(),
+                    user.getAddress(),
+                    user.getPhone(),
+                    user.getTitle(),
+                    user.getRoles().get(0).getName().toString(),
+                    skillDTOs
+            );
+            return new ResponseEntity<UserResponse>(responseUser, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/admin")

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-//import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
