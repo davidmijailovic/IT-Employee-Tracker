@@ -1,6 +1,7 @@
 package it.employee.tracker.service.implementations;
 
 import it.employee.tracker.model.*;
+import it.employee.tracker.model.dto.ProjectDTO;
 import it.employee.tracker.model.dto.SkillDTO;
 import it.employee.tracker.model.dto.UserDTO;
 import it.employee.tracker.model.response.UserResponse;
@@ -13,6 +14,7 @@ import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -77,38 +79,36 @@ public class UserServiceImpl implements UserService {
         userRepository.save(editUser);
         return editUser;
     }
-
     @Override
     public User findById(Long id) throws NoSuchElementException {
         return userRepository.findById(id).get();
     }
 
 
-    @Override
     public List<SkillDTO> mapSkillToSkillDto(SoftwareEngineer softwareEngineer) {
-        List<SkillDTO> skillDTOs = new ArrayList<>();
-        TypeMap<Skill, SkillDTO> skillMap = modelMapper.getTypeMap(Skill.class, SkillDTO.class);
-
-        if (skillMap == null) {
-            skillMap = modelMapper.createTypeMap(Skill.class, SkillDTO.class);
-            skillMap.addMappings(mapping -> {
-                mapping.map(Skill::getName, SkillDTO::setName);
-            });
+        List<SkillDTO> skillDTOList = new ArrayList<>();
+        for (SoftwareEngineerSkill softwareEngineerSkill : softwareEngineer.getSkills()) {
+            SkillDTO skillDTO = modelMapper.map(softwareEngineerSkill, SkillDTO.class);
+            skillDTO.setName(softwareEngineerSkill.getSkill().getName());
+            skillDTO.setGrade(softwareEngineerSkill.getValue());
+            skillDTOList.add(skillDTO);
         }
-
-        TypeMap<Skill, SkillDTO> finalSkillMap = skillMap;
-        skillDTOs = softwareEngineer.getSkills().stream()
-                .map(s -> {
-                    SkillDTO skillDTO = finalSkillMap.map(s);
-                    if (!s.getSoftwareEngineerSkills().isEmpty()) {
-                        skillDTO.setGrade(s.getSoftwareEngineerSkills().get(0).getValue());
-                    }
-                    return skillDTO;
-                })
-                .collect(Collectors.toList());
-
-        return skillDTOs;
+        return skillDTOList;
     }
+
+    @Override
+    public List<ProjectDTO> mapProjectToProjectDto(SoftwareEngineer softwareEngineer) {
+        List<ProjectDTO> projects = new ArrayList<>();
+        for (SoftwareEngineerProject softwareEngineerProject : softwareEngineer.getProjects()) {
+            ProjectDTO projectDTO = modelMapper.map(softwareEngineerProject, ProjectDTO.class);
+            projectDTO.setName(softwareEngineerProject.getProject().getName());
+            projectDTO.setDescription(softwareEngineerProject.getDescription());
+            projectDTO.setDuration(softwareEngineerProject.getDuration());
+            projects.add(projectDTO);
+        }
+        return projects;
+    }
+
     private String generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] saltBytes = new byte[16];

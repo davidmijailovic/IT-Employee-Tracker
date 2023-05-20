@@ -17,10 +17,6 @@ public class SoftwareEngineerSkill {
     @JoinColumn(name = "skill_id")
     private Skill skill;
 
-    @ManyToOne
-    @JoinColumn(name = "software_engineer_id")
-    private SoftwareEngineer softwareEngineer;
-
     @Column
     private String value;
 }

@@ -4,13 +4,31 @@
       <div class="col-lg-4">
         <div class="card">
           <div class="card-body">
-            <div class="d-flex flex-column align-items-center text-center">
+            <div class="d-flex flex-column align-items-center text-center border-bottom">
               <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin"
                 class="rounded-circle p-1 bg-primary" width="110">
               <div class="mt-3">
                 <h4>{{name}} {{surname}}</h4>
                 <p class="text-secondary mb-1">{{role}}</p>
                 <p class="text-muted font-size-sm">{{country}}, {{city}}, {{street}} {{number}}</p>
+              </div>
+            </div>
+
+            <div class="card-body" *ngIf="userSkills && userSkills.length > 0">
+              <h5 class="d-flex align-items-center mb-3">Skills</h5>
+              <p *ngFor="let skill of userSkills">
+                {{ skill.name }}
+                <span *ngFor="let star of getStars(skill.grade)" class="star-icon"
+                  [ngClass]="getStarColor(skill.grade)">
+                  <i class="bi bi-star-fill"></i>
+                </span>
+              </p>
+            </div>
+            <div class="row" *ngIf="userSkills && userSkills.length > 0">
+              <div class="col-sm-9 text-secondary">
+                <div class="d-flex">
+                  <input type="button" class="btn btn-primary px-4 m-2" value="Add" (click)="openModal(content)">
+                </div>
               </div>
             </div>
 
@@ -106,25 +124,76 @@
         </div>
 
 
-        <div class="col" *ngIf="skills && skills.length > 0">
+        <div class="col" *ngIf="projects && projects.length > 0">
           <div class="row-sm-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="d-flex align-items-center mb-3">Skills</h5>
-                <p *ngFor="let skill of skills">{{ skill.name }} Grade: {{ skill.grade }}*</p>
-              </div>
-              <div class="row">
-                <div class="col-sm-9 text-secondary">
-                  <div class="d-flex">
-                    <input type="button" class="btn btn-primary px-4 m-2" value="Add" (click)="enableFields()">
-                  </div>
+                <h5 class="text-center">Projects</h5>
+                <div *ngFor="let project of projects" class="project-item mb-3">
+                  <h6>{{ project.name }} <button class="btn btn-primary btn-sm"
+                      (click)="openEditModal(project)">Edit</button></h6>
+                  <i>{{ project.description }}</i>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
+
       </div>
     </div>
   </div>
 </div>
+
+
+<!-- Project modal -->
+
+<ng-template #project let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Edit - {{projectName}}</h5>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="projectDescription">Description:</label>
+      <textarea class="form-control" id="projectDescription" [(ngModel)]="projectDescription"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="saveProjectChanges()">Save Changes</button>
+  </div>
+</ng-template>
+
+<!-- End project modal -->
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Add skill</h5>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="profileForm">
+      <div class="form-group">
+        <label for="skillsDropdown">Skills:</label>
+        <select class="form-control" id="skillsDropdown" formControlName="skills" [(ngModel)]="selectedSkill" required>
+          <option *ngFor="let skill of skills" [value]="skill.name">{{ skill.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="gradeDropdown">Grade:</label>
+        <select class="form-control" id="gradeDropdown" formControlName="grade" [(ngModel)]="selectedGrade" required>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="saveModal()">Save</button>
+  </div>
+</ng-template>

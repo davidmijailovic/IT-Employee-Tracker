@@ -2,6 +2,7 @@ package it.employee.tracker.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import it.employee.tracker.model.Address;
+import it.employee.tracker.model.dto.ProjectDTO;
 import it.employee.tracker.model.dto.SkillDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,4 +23,5 @@ public class UserResponse {
     private String title;
     private String role;
     private List<SkillDTO> skills;
+    private List<ProjectDTO> projects;
 }

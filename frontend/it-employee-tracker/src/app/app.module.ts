@@ -12,6 +12,8 @@ import { RegisterComponent } from './modules/register/register.component';
 import { ToastrModule } from 'ngx-toastr';
 import { JwtInterceptor, JwtModule } from '@auth0/angular-jwt';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +23,7 @@ import { ProfileComponent } from './modules/profile/profile.component';
     ProfileComponent,
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       preventDuplicates: true,

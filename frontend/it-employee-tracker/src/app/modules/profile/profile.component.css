@@ -73,3 +73,33 @@ body{
   margin-right: .5rem!important;
 }
 
+
+
+.star-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+.star-icon.red {
+  color: red;
+}
+
+.star-icon.orange {
+  color: orange;
+}
+
+.star-icon.yellow {
+  color: #ebee3d;
+}
+
+.star-icon.light-green {
+  color: lightgreen;
+}
+
+.star-icon.green {
+  color: green;
+}
+
+
+

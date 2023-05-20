@@ -1,21 +1,26 @@
 package it.employee.tracker.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Skill {
+@Entity
+@Table(name = "software_engineer_project")
+public class SoftwareEngineerProject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
     @Column
-    private String name;
+    private String description;
+    @Column
+    private String duration;
+
+
 }

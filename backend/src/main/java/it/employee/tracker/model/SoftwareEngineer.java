@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,10 +21,11 @@ public class SoftwareEngineer extends User {
     @Column
     private String verificationCode;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "software_engineer_skill",
-            joinColumns = @JoinColumn(name = "software_engineer_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private List<Skill> skills;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "software_engineer_id", referencedColumnName = "id")
+    private List<SoftwareEngineerSkill> skills;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "software_engineer_id", referencedColumnName = "id")
+    private List<SoftwareEngineerProject> projects;
 }
