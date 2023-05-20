@@ -1,0 +1,34 @@
+<form class="register-form">
+  <h2>Register</h2>
+  <label for="first-name">First Name:</label>
+  <input type="text" id="first-name" name="first-name" [(ngModel)]="registerParams.name" required />
+  <label for="last-name">Last Name:</label>
+  <input type="text" id="last-name" name="last-name" [(ngModel)]="registerParams.surname" />
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" [(ngModel)]="registerParams.email" required />
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" [(ngModel)]="registerParams.password" required />
+  <label for="re-password">Re-Password:</label>
+  <input type="password" id="re-password" name="re-password" [(ngModel)]="registerParams.re_password" required />
+  <label for="country">Country:</label>
+  <input type="text" id="country" name="country" [(ngModel)]="address.country" />
+  <label for="city">City:</label>
+  <input type="text" id="city" name="city" [(ngModel)]="address.city" />
+  <label for="street">Street:</label>
+  <input type="text" id="street" name="street" [(ngModel)]="address.street" />
+  <label for="number">Number:</label>
+  <input type="text" id="number" name="number" [(ngModel)]="address.number" />
+  <label for="phone">Phone:</label>
+  <input type="text" id="phone" name="phone" [(ngModel)]="registerParams.phone" />
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" [(ngModel)]="registerParams.title" />
+  <label for="accountType">Account type:</label>
+  <select name="accountType" [(ngModel)]="registerParams.accountType" id="accountType">
+    <option value="" disabled selected>Select account type</option>
+    <option value="SOFTWARE_ENGINEER">Software engineer</option>
+    <option value="HR_MANAGER">Hr manager</option>
+    <option value="PROJECT_MANAGER">Project manager</option>
+  </select>
+
+  <button type="submit" (click)="register()">Register</button>
+</form>

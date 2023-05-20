@@ -8,7 +8,6 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name ="addresses")
 
 public class Address {
     @Id

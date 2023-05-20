@@ -1,27 +1,33 @@
 package it.employee.tracker.controller;
 
 import it.employee.tracker.model.User;
+import it.employee.tracker.model.UserTokenState;
+import it.employee.tracker.model.dto.JwtAuthenticationRequest;
 import it.employee.tracker.model.dto.UserDTO;
 import it.employee.tracker.service.interfaces.HrManagerService;
 import it.employee.tracker.service.interfaces.ProjectManagerService;
 import it.employee.tracker.service.interfaces.SoftwareEngineerService;
 import it.employee.tracker.service.interfaces.UserService;
 import it.employee.tracker.util.TokenUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +47,28 @@ public class AuthenticationController {
     private HrManagerService hrManagerService;
     @Autowired
     private ProjectManagerService projectManagerService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+
+
+    @PostMapping("/login")
+    public ResponseEntity<UserTokenState> createAuthenticationToken(
+            @RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
+
+        User logUser = userService.findByEmail(authenticationRequest.getUsername());
+
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                authenticationRequest.getUsername(), authenticationRequest.getPassword().concat(logUser.getSalt())));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        User user = (User) authentication.getPrincipal();
+        String jwt = tokenUtils.generateToken(user);
+        int expiresIn = tokenUtils.getExpiredIn();
+
+        return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> addUser(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult)  {

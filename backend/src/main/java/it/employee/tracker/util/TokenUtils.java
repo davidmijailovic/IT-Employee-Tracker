@@ -50,7 +50,7 @@ public class TokenUtils {
     /**
      * Funkcija za generisanje JWT tokena.
      *
-     * @param username Korisničko ime korisnika kojem se token izdaje
+
      * @return JWT token
      */
     public String generateToken(User user) {
@@ -244,7 +244,7 @@ public class TokenUtils {
         // Token je validan kada:
         return (username != null // korisnicko ime nije null
                 && username.equals(((User) userDetails).getEmail()) // korisnicko ime iz tokena se podudara sa korisnickom imenom koje pise u bazi
-                 ); // nakon kreiranja tokena korisnik nije menjao svoju lozinku
+        ); // nakon kreiranja tokena korisnik nije menjao svoju lozinku
     }
 
     /**
@@ -279,5 +279,6 @@ public class TokenUtils {
     public String getAuthHeaderFromHeader(HttpServletRequest request) {
         return request.getHeader(AUTH_HEADER);
     }
+
 
 }

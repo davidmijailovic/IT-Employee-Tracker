@@ -1,7 +1,6 @@
 package it.employee.tracker.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import it.employee.tracker.model.AccountType;
 import it.employee.tracker.model.Address;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -29,10 +28,10 @@ public class UserDTO {
     private String re_password;
     @JsonProperty
     private Address address;
-    @Pattern(regexp = "^(\\+\\s?)?\\d+$")
+    @Pattern(regexp = "^(\\+\\s?)?\\d+$", message = "Invalid phone number format")
     private String phone;
-    @Pattern(regexp = "^[a-zA-Z]+$")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Title must contain only letters")
     private String title;
     @Enumerated(EnumType.STRING)
-    private AccountType accountType;
+    private AccountTypeDTO accountType;
 }
