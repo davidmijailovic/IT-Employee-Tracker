@@ -56,6 +56,10 @@ public class WebSecurityConfig {
                 .requestMatchers("/signup").permitAll()
                 .requestMatchers("/login").permitAll()
                 .anyRequest().authenticated().and()
+
+                .requiresChannel().requestMatchers("/**").requiresSecure()
+                .and()
+
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils,  userDetailsService()), BasicAuthenticationFilter.class);
         http.csrf().disable();
@@ -64,7 +68,7 @@ public class WebSecurityConfig {
     }
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/auth")
+        return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/auth/login")
                 .requestMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "favicon.ico",
                         "/*/*.html", "/*/*.css", "/*/*.js");
     }
