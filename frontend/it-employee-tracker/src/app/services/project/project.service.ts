@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProjectService {
-  apiHost: string = 'http://localhost:8081/';
+  apiHost: string = 'https://localhost:8443/';
   headers: HttpHeaders = new HttpHeaders({
     Accept: 'application/json',
     'Content-Type': 'application/json',
