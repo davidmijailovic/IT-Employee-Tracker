@@ -28,6 +28,7 @@
     "rxjs": "~7.5.0",
     "toastr": "^2.1.4",
     "tslib": "^2.3.0",
+    "webpack": "^5.83.1",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {

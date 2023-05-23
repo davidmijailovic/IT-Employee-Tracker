@@ -29,7 +29,7 @@ import static it.employee.tracker.controller.AuthenticationController.ValidateRe
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://localhost:4200")
 public class UserController {
     @Autowired
     private UserService userService;
