@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { SkillService } from './../../services/skill/skill.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -48,7 +49,8 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
     private skillService: SkillService,
     private toastr: ToastrService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private authService: AuthService
   ) {}
 
   enableFields() {
@@ -90,7 +92,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.jwtHelper.decodeToken().id;
+    var token = this.authService.getToken();
+    this.id = this.jwtHelper.decodeToken(token!).id;
     this.userService.fetchUser(this.id).subscribe((data) => {
       this.user = data;
       this.name = this.user.name;

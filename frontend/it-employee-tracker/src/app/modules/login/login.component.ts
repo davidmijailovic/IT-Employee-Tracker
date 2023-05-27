@@ -25,7 +25,7 @@ export class LoginComponent {
   login() {
     this.userService.loginUser(this.user).subscribe((res) => {
       if (res.tokenString != 'no match') {
-        this.authService.setToken(res.accessToken);
+        this.authService.setToken(res.accessToken, res.refreshToken);
         this.toastr.success('Logged in!', 'Success');
         this.router.navigate(['/']);
       } else {
