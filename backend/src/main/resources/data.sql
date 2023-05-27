@@ -1,6 +1,6 @@
 INSERT INTO address(
     city, country, number, street)
-VALUES ('Kovilj', 'Srbija', '50', 'Živojina Mišića');
+VALUES ('Novi Sad', 'Srbija', '20', 'Živojina Mišića');
 
 INSERT INTO role (name) VALUES ('ROLE_SOFTWARE_ENGINEER');
 INSERT INTO role (name) VALUES ('ROLE_ADMINISTRATOR');
@@ -41,10 +41,9 @@ INSERT INTO project(name) VALUES ('Data Analytics Dashboard');
 INSERT INTO project(name) VALUES ('Chatbot Development');
 INSERT INTO project(name) VALUES ('IoT Project');
 
-INSERT INTO software_engineer_project(description, project_id, software_engineer_id, duration) VALUES ('Develop a fully functional e-commerce website that enables online transactions, integrates secure payment gateways, and provides a user-friendly interface for customers to browse and purchase products.', 1, 1, '20');
-INSERT INTO software_engineer_project(description, project_id, software_engineer_id, duration) VALUES ('Create a mobile application for a specific business or service, incorporating features such as real-time notifications, user authentication, and seamless integration with existing backend systems, aiming to enhance user engagement and convenience.', 2, 1, '30');
-INSERT INTO software_engineer_project(description, project_id, software_engineer_id, duration) VALUES ('Build a data analytics dashboard that visualizes key performance indicators, generates insights, and facilitates data-driven decision making by aggregating and presenting data from various sources in a visually appealing and easy-to-understand format.', 3, 1, '14');
-INSERT INTO software_engineer_project(description, project_id, software_engineer_id, duration) VALUES ('Design and develop an AI-powered chatbot capable of understanding natural language queries, providing relevant responses, and automating certain tasks, serving as a virtual assistant for customer support or information retrieval.', 4, 1, '35');
-INSERT INTO software_engineer_project(description, project_id, software_engineer_id, duration) VALUES ('Develop an Internet of Things (IoT) project, such as a smart home automation system, by integrating various sensors, devices, and platforms to enable remote control and monitoring of household appliances, enhancing convenience and energy efficiency.', 5, 1, '17');
-
+INSERT INTO software_engineer_project(description, project_id, software_engineer_id, duration) VALUES ('Performed full-stack development for a robust e-commerce website, implementing secure payment gateways, optimizing user experience, and enabling seamless online transactions.', 1, 1, '20');
+INSERT INTO software_engineer_project(description, project_id, software_engineer_id, duration) VALUES ('Designed and developed a feature-rich mobile application for a specific business, integrating real-time notifications, user authentication, and backend system integration to enhance user engagement and convenience.', 2, 1, '30');
+INSERT INTO software_engineer_project(description, project_id, software_engineer_id, duration) VALUES ('Built an interactive data analytics dashboard, visualizing key performance indicators and enabling data-driven decision making by aggregating and presenting data from multiple sources in a visually appealing format.', 3, 1, '14');
+INSERT INTO software_engineer_project(description, project_id, software_engineer_id, duration) VALUES ('Created an AI-powered chatbot capable of understanding natural language queries, providing relevant responses, and automating tasks, serving as a virtual assistant for customer support and information retrieval.', 4, 1, '35');
+INSERT INTO software_engineer_project(description, project_id, software_engineer_id, duration) VALUES ('Developed an IoT project, integrating sensors, devices, and platforms to enable remote control and monitoring of household appliances for enhanced convenience and energy efficiency.', 5, 1, '17');
 

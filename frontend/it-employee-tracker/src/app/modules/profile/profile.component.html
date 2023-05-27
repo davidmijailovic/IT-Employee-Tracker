@@ -14,7 +14,7 @@
               </div>
             </div>
 
-            <div class="card-body" *ngIf="userSkills && userSkills.length > 0">
+            <div class="card-body" *ngIf="userSkills">
               <h5 class="d-flex align-items-center mb-3">Skills</h5>
               <p *ngFor="let skill of userSkills">
                 {{ skill.name }}
@@ -24,7 +24,7 @@
                 </span>
               </p>
             </div>
-            <div class="row" *ngIf="userSkills && userSkills.length > 0">
+            <div class="row" *ngIf="userSkills">
               <div class="col-sm-9 text-secondary">
                 <div class="d-flex">
                   <input type="button" class="btn btn-primary px-4 m-2" value="Add" (click)="openModal(content)">
@@ -124,7 +124,7 @@
         </div>
 
 
-        <div class="col" *ngIf="projects && projects.length > 0">
+        <div class="col" *ngIf="projects">
           <div class="row-sm-12">
             <div class="card">
               <div class="card-body">

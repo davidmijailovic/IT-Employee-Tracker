@@ -1,7 +1,7 @@
 package it.employee.tracker.controller;
 
 import it.employee.tracker.model.User;
-import it.employee.tracker.model.UserTokenState;
+import it.employee.tracker.model.dto.UserTokenState;
 import it.employee.tracker.model.dto.JwtAuthenticationRequest;
 import it.employee.tracker.model.dto.UserDTO;
 import it.employee.tracker.service.interfaces.HrManagerService;
@@ -19,7 +19,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +43,6 @@ public class AuthenticationController {
     private HrManagerService hrManagerService;
     @Autowired
     private ProjectManagerService projectManagerService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
 
 
@@ -61,10 +58,18 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         User user = (User) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user);
-        int expiresIn = tokenUtils.getExpiredIn();
+        String access = tokenUtils.generateAccessToken(user);
+        String refresh = tokenUtils.generateRefreshToken(user);
+        int accessExpiresIn = tokenUtils.getAccessTokenExpiresIn();
+        int refreshExpiresIn = tokenUtils.getRefreshTokenExpiresIn();
 
-        return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+        UserTokenState userTokenState = new UserTokenState();
+        userTokenState.setAccessToken(access);
+        userTokenState.setRefreshToken(refresh);
+        userTokenState.setAccessExpiresIn(accessExpiresIn);
+        userTokenState.setRefreshExpiresIn(refreshExpiresIn);
+
+        return ResponseEntity.ok(userTokenState);
     }
 
     @PostMapping("/signup")
