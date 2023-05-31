@@ -78,7 +78,7 @@ public class AuthenticationController {
         if (this.userService.findByEmail(userDTO.getEmail()) != null) {
             return new ResponseEntity<>("A user with that email already exists!",HttpStatus.CONFLICT);
         } else if (!userDTO.getPassword().equals(userDTO.getRe_password())) {
-            return new ResponseEntity<>("Passwords do not match!",HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Passwords doesn't match!",HttpStatus.CONFLICT);
         }
 
         ResponseEntity<List<String>> errorMessages = ValidateRequest(bindingResult);
