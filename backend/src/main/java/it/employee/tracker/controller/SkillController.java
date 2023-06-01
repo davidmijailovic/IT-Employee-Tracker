@@ -26,7 +26,7 @@ public class SkillController {
 
 
     @PostMapping("/add")
-    @PreAuthorize("hasAnyRole('SOFTWARE_ENGINEER')")
+    @PreAuthorize("hasAuthority('ADD_SKILL_PERMISSION')")
     public ResponseEntity<?> addSkill(@RequestBody @Valid SkillRequest skillReq) {
         SoftwareEngineer engineer = this.softwareEngineer.findById(skillReq.getUserId());
         if (engineer == null) {
@@ -48,11 +48,12 @@ public class SkillController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('SOFTWARE_ENGINEER')")
-    public ResponseEntity<List<Skill>> getSkills(){
+    @PreAuthorize("hasAuthority('GET_SKILLS_PERMISSION')")
+    public ResponseEntity<List<Skill>> getSkills() {
         List<Skill> skills = skillService.getSkills();
         return new ResponseEntity<>(skills, HttpStatus.OK);
     }
+
 
     private boolean hasSkillWithName(SoftwareEngineer softwareEngineer, String skillName) {
         for (SoftwareEngineerSkill softwareEngineerSkill : softwareEngineer.getSkills()) {

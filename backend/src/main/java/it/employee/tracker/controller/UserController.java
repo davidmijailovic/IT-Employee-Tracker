@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAnyRole('SOFTWARE_ENGINEER', 'ADMINISTRATOR', 'ROLE_HR_MANAGER', 'ROLE_PROJECT_MANAGER')")
+    @PreAuthorize("hasAuthority('EDIT_USER_PERMISSION')")
     public ResponseEntity<?> editUser(@PathVariable long id, @RequestBody UserResponse editInfo) {
         User forEdit = userService.findById(id);
         if (forEdit == null) {
@@ -62,7 +62,7 @@ public class UserController {
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('SOFTWARE_ENGINEER', 'ADMINISTRATOR', 'ROLE_HR_MANAGER', 'ROLE_PROJECT_MANAGER')")
+    @PreAuthorize("hasAuthority('FIND_USER_BY_ID_PERMISSION')")
     public ResponseEntity<UserResponse> findById(@PathVariable("id") Long id){
         try {
             User user = userService.findById(id);

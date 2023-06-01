@@ -55,6 +55,7 @@ public class WebSecurityConfig {
         http.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
         http.authorizeRequests().requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/{id}").hasAuthority("FIND_USER_BY_ID_PERMISSION")
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils,  userDetailsService()), BasicAuthenticationFilter.class);

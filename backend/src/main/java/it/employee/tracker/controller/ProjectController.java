@@ -29,8 +29,8 @@ public class ProjectController {
 
 
     @PutMapping
-    @PreAuthorize("hasAnyRole('SOFTWARE_ENGINEER')")
-    public ResponseEntity<?> addSkill(@RequestBody @Valid ProjectRequest projectRequest) {
+    @PreAuthorize("hasAuthority('EDIT_PROJECT_PERMISSION')")
+    public ResponseEntity<?> editProject(@RequestBody @Valid ProjectRequest projectRequest) {
         SoftwareEngineer engineer = this.softwareEngineerService.findById(projectRequest.getUserId());
         if (engineer == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -16,6 +16,7 @@ import java.util.List;
 public class SoftwareEngineer extends User {
     @Column
     private LocalDate employmentDate;
+    @Enumerated(EnumType.STRING)
     @Column
     private Seniority seniority;
     @Column
