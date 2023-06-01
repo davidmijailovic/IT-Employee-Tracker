@@ -39,7 +39,7 @@
   margin-top: 20px;
   border-radius: 5px;
   border: none;
-  background-color: rgb(25, 135, 84);
+  background-color: #4845f7;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
@@ -57,5 +57,5 @@
 }
 
 .register-form button[type="submit"]:hover {
-  background-color: #1e7f53;
+  background-color: #1c1a7c;
 }

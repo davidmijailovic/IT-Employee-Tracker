@@ -63,9 +63,10 @@ export class ProfileComponent implements OnInit {
   }
 
   editProfile() {
-    this.id = this.jwtHelper.decodeToken().id;
+    var token = this.authService.getToken();
+    this.id = this.jwtHelper.decodeToken(token!).id;
     this.editInfo = {
-      id: this.jwtHelper.decodeToken().id,
+      id: this.id,
       name: this.name,
       surname: this.surname,
       email: this.email,
@@ -147,9 +148,10 @@ export class ProfileComponent implements OnInit {
   }
 
   saveProjectChanges() {
+    var token = this.authService.getToken();
     this.projectService
       .editProjectDescription({
-        userId: this.jwtHelper.decodeToken().id,
+        userId: this.jwtHelper.decodeToken(token!).id,
         name: this.projectName,
         description: this.projectDescription,
       })
@@ -187,9 +189,10 @@ export class ProfileComponent implements OnInit {
   }
 
   saveModal() {
+    var token = this.authService.getToken();
     this.skillService
       .addSkill({
-        userId: this.jwtHelper.decodeToken().id,
+        userId: this.jwtHelper.decodeToken(token!).id,
         name: this.selectedSkill,
         grade: this.selectedGrade,
       })
