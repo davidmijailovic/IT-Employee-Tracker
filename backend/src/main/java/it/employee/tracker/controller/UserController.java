@@ -11,6 +11,8 @@ import it.employee.tracker.service.interfaces.AdministratorService;
 import it.employee.tracker.service.interfaces.SoftwareEngineerService;
 import it.employee.tracker.service.interfaces.UserService;
 import jakarta.validation.Valid;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,21 +40,25 @@ public class UserController {
     @Autowired
     private SoftwareEngineerService softwareEngineerService;
 
+    private static final Logger logger = LogManager.getLogger(UserController.class);
+
     @GetMapping("getAll")
     public List<User> getUsers() {
         return userService.getAll();
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAnyRole('SOFTWARE_ENGINEER', 'ADMINISTRATOR', 'ROLE_HR_MANAGER', 'ROLE_PROJECT_MANAGER')")
+    @PreAuthorize("hasAuthority('EDIT_USER_PERMISSION')")
     public ResponseEntity<?> editUser(@PathVariable long id, @RequestBody UserResponse editInfo) {
         User forEdit = userService.findById(id);
         if (forEdit == null) {
+            logger.info("User not found!");
             return new ResponseEntity<String>("User not found!", HttpStatus.NOT_FOUND);
         }
 
         try {
             User editedUser = userService.editUser(forEdit, editInfo, id);
+            logger.info("User "+ editedUser.getEmail() + " has successfully edited the data.");
             return new ResponseEntity<>(editedUser, HttpStatus.CREATED);
         } catch (AccessDeniedException ex) {
             String errorMessage = "Access denied: " + ex.getMessage();
@@ -62,7 +68,7 @@ public class UserController {
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('SOFTWARE_ENGINEER', 'ADMINISTRATOR', 'ROLE_HR_MANAGER', 'ROLE_PROJECT_MANAGER')")
+    @PreAuthorize("hasAuthority('FIND_USER_BY_ID_PERMISSION')")
     public ResponseEntity<UserResponse> findById(@PathVariable("id") Long id){
         try {
             User user = userService.findById(id);
@@ -84,34 +90,11 @@ public class UserController {
                     skills,
                     projects
             );
+            logger.info("User " + user.getEmail() + " was successfully found!");
             return new ResponseEntity<UserResponse>(responseUser, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
-
-    @PostMapping("/admin")
-    public ResponseEntity<?> addUser(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult, UriComponentsBuilder ucBuilder) throws UnsupportedEncodingException {
-
-        if (this.userService.findByEmail(userDTO.getEmail()) != null) {
-            return new ResponseEntity<>("A user with that email already exists!", HttpStatus.CONFLICT);
-        } else if (!userDTO.getPassword().equals(userDTO.getRe_password())) {
-            return new ResponseEntity<>("Passwords do not match!",HttpStatus.CONFLICT);
-        }
-
-        ResponseEntity<List<String>> errorMessages = ValidateRequest(bindingResult);
-        if (errorMessages != null) return errorMessages;
-
-        User registeredUser = this.administratorService.registerAdministrator(userDTO);
-        String errorMessage = "Failed to register admin.";
-
-        if (registeredUser == null) {
-            return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
-        }
-
-        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
-
-    }
-
 }

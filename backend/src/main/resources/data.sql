@@ -7,18 +7,46 @@ INSERT INTO role (name) VALUES ('ROLE_ADMINISTRATOR');
 INSERT INTO role (name) VALUES ('ROLE_PROJECT_MANAGER');
 INSERT INTO role (name) VALUES ('ROLE_HR_MANAGER');
 
+INSERT INTO permission (name) VALUES ('EDIT_USER_PERMISSION');
+INSERT INTO permission (name) VALUES ('FIND_USER_BY_ID_PERMISSION');
+INSERT INTO permission (name) VALUES ('GET_SKILLS_PERMISSION');
+INSERT INTO permission (name) VALUES ('EDIT_PROJECT_PERMISSION');
+INSERT INTO permission (name) VALUES ('ADD_SKILL_PERMISSION');
+
+--SOFTWARE_ENGINEER permissions
+INSERT INTO role_permission (role_id, permission_id) VALUES (1, 1);
+INSERT INTO role_permission (role_id, permission_id) VALUES (1, 2);
+INSERT INTO role_permission (role_id, permission_id) VALUES (1, 3);
+INSERT INTO role_permission (role_id, permission_id) VALUES (1, 4);
+INSERT INTO role_permission (role_id, permission_id) VALUES (1, 5);
+
+--HR_MANAGER permissions
+INSERT INTO role_permission (role_id, permission_id) VALUES (4, 1);
+INSERT INTO role_permission (role_id, permission_id) VALUES (4, 2);
+
 
 --David2000!
 INSERT INTO users(
                  name, surname, email, password, salt, phone, title, enabled, approved, address_id)
 VALUES ('David', 'Mijailovic', 'email@mail.com', '$2a$10$nzPV75Z8awCThfP/TEoHLOsCypm2pWRWilnbGBWFneC3ITTcbtOfm', '3eadd21832894b28b44e9ebd88836529', '06400493', 'Student', true, true, 1);
 
+INSERT INTO users(
+    name, surname, email, password, salt, phone, title, enabled, approved, address_id)
+VALUES ('David', 'Mijailovic', 'hr@mail.com', '$2a$10$nzPV75Z8awCThfP/TEoHLOsCypm2pWRWilnbGBWFneC3ITTcbtOfm', '3eadd21832894b28b44e9ebd88836529', '06400493', 'Student', true, true, 1);
+
+
 
 INSERT INTO user_role(
                       user_id, role_id)
 VALUES (1,1);
 
-INSERT INTO software_engineer(id) VALUES (1);
+INSERT INTO user_role(
+    user_id, role_id)
+VALUES (2,4);
+
+
+INSERT INTO software_engineer (id, employment_date) VALUES (1, '2023-05-30');
+INSERT INTO hr_manager(id) VALUES (2);
 
 INSERT INTO skill(name) VALUES ('Python');
 INSERT INTO skill(name) VALUES ('Angular');

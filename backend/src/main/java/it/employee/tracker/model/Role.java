@@ -6,8 +6,9 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.List;
 
-// POJO koji implementira Spring Security GrantedAuthority kojim se mogu definisati role u aplikaciji
+
 @Entity
 @Table(name="role")
 @Getter
@@ -24,8 +25,14 @@ public class Role implements GrantedAuthority {
     @Column(name="name")
     private String name;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "role_permission",
+            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
+    private List<Permission> permissions;
 
-    @JsonIgnore
+
+
     @Override
     public String getAuthority() {
         return name;

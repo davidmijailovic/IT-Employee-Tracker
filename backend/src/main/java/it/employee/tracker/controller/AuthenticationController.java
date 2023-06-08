@@ -11,6 +11,8 @@ import it.employee.tracker.service.interfaces.UserService;
 import it.employee.tracker.util.TokenUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,12 +47,15 @@ public class AuthenticationController {
     private ProjectManagerService projectManagerService;
 
 
+    private static final Logger logger = LogManager.getLogger(AuthenticationController.class);
 
     @PostMapping("/login")
     public ResponseEntity<UserTokenState> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
 
         User logUser = userService.findByEmail(authenticationRequest.getUsername());
+
+        logger.info("User " + authenticationRequest.getUsername() +  " not found.");
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 authenticationRequest.getUsername(), authenticationRequest.getPassword().concat(logUser.getSalt())));
@@ -69,6 +74,8 @@ public class AuthenticationController {
         userTokenState.setAccessExpiresIn(accessExpiresIn);
         userTokenState.setRefreshExpiresIn(refreshExpiresIn);
 
+        logger.info("User " + authenticationRequest.getUsername() +  " has been successfully authenticated.");
+
         return ResponseEntity.ok(userTokenState);
     }
 
@@ -76,8 +83,10 @@ public class AuthenticationController {
     public ResponseEntity<?> addUser(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult)  {
 
         if (this.userService.findByEmail(userDTO.getEmail()) != null) {
+            logger.info("A user with "+ userDTO.getEmail() +" email already exists!");
             return new ResponseEntity<>("A user with that email already exists!",HttpStatus.CONFLICT);
         } else if (!userDTO.getPassword().equals(userDTO.getRe_password())) {
+            logger.info("Passwords doesn't match!");
             return new ResponseEntity<>("Passwords doesn't match!",HttpStatus.CONFLICT);
         }
 
@@ -103,9 +112,10 @@ public class AuthenticationController {
         }
 
         if (registeredUser == null) {
+            logger.info(errorMessage);
             return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
         }
-
+        logger.info("User " + registeredUser.getEmail() + " has been successfully registered!");
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
     }
 
