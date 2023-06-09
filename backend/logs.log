@@ -1,103 +1,12 @@
-08.06.2023. 14:03:33 INFO  [Version             ] HV000001: Hibernate Validator 7.0.1.Final
-08.06.2023. 14:03:33 INFO  [ItEmployeeTrackerApplication] Starting ItEmployeeTrackerApplication using Java 19.0.2 with PID 24020 (D:\David\Faks\Bezbednost\IT-Employee-Tracker\backend\target\classes started by david in D:\David\Faks\Bezbednost\IT-Employee-Tracker\backend)
-08.06.2023. 14:03:33 INFO  [ItEmployeeTrackerApplication] No active profile set, falling back to 1 default profile: "default"
-08.06.2023. 14:03:33 INFO  [DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-08.06.2023. 14:03:33 INFO  [DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-08.06.2023. 14:03:33 INFO  [RepositoryConfigurationDelegate] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-08.06.2023. 14:03:33 INFO  [RepositoryConfigurationDelegate] Finished Spring Data repository scanning in 82 ms. Found 8 JPA repository interfaces.
-08.06.2023. 14:03:34 INFO  [TomcatWebServer     ] Tomcat initialized with port(s): 8443 (https)
-08.06.2023. 14:03:34 INFO  [Http11NioProtocol   ] Initializing ProtocolHandler ["https-jsse-nio-8443"]
-08.06.2023. 14:03:34 INFO  [StandardService     ] Starting service [Tomcat]
-08.06.2023. 14:03:34 INFO  [StandardEngine      ] Starting Servlet engine: [Apache Tomcat/10.1.8]
-08.06.2023. 14:03:34 INFO  [[/]                 ] Initializing Spring embedded WebApplicationContext
-08.06.2023. 14:03:34 INFO  [ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 1378 ms
-08.06.2023. 14:03:34 INFO  [LogHelper           ] HHH000204: Processing PersistenceUnitInfo [name: default]
-08.06.2023. 14:03:34 INFO  [Version             ] HHH000412: Hibernate ORM core version 6.1.7.Final
-08.06.2023. 14:03:35 INFO  [HikariDataSource    ] HikariPool-1 - Starting...
-08.06.2023. 14:03:35 INFO  [HikariPool          ] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@37c9f466
-08.06.2023. 14:03:35 INFO  [HikariDataSource    ] HikariPool-1 - Start completed.
-08.06.2023. 14:03:35 INFO  [SQL dialect         ] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
-08.06.2023. 14:03:35 WARN  [deprecation         ] HHH90000026: PostgreSQL95Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "administrator" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "hr_manager" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "project_manager" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "role_permission" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "role_permission" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "software_engineer_project" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "software_engineer_project" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "software_engineer_skill" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "software_engineer_skill" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "software_engineer" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "user_role" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "user_role" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] relation "users" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "address" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "administrator" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "hr_manager" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "permission" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "project" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "project_manager" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "role" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "role_permission" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "skill" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "software_engineer_project" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "software_engineer_skill" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "software_engineer" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "user_role" does not exist, skipping
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
-08.06.2023. 14:03:36 WARN  [SqlExceptionHelper  ] table "users" does not exist, skipping
-08.06.2023. 14:03:36 INFO  [JtaPlatformInitiator] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-08.06.2023. 14:03:36 INFO  [LocalContainerEntityManagerFactoryBean] Initialized JPA EntityManagerFactory for persistence unit 'default'
-08.06.2023. 14:03:36 WARN  [JpaBaseConfiguration$JpaWebConfiguration] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-08.06.2023. 14:03:37 INFO  [DefaultSecurityFilterChain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@206ca37d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3dbed5bc, org.springframework.security.web.context.SecurityContextHolderFilter@238f380b, org.springframework.security.web.header.HeaderWriterFilter@4448cca1, org.springframework.web.filter.CorsFilter@555ca417, org.springframework.security.web.authentication.logout.LogoutFilter@3ff8839b, it.employee.tracker.security.TokenAuthenticationFilter@2297e038, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@39a30c5c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@586d1564, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6725c85c, org.springframework.security.web.session.SessionManagementFilter@58abc6e5, org.springframework.security.web.access.ExceptionTranslationFilter@69d5c2ce, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@25536dcf]
-08.06.2023. 14:03:37 WARN  [WebSecurity         ] You are asking Spring Security to ignore Mvc [pattern='/auth', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08.06.2023. 14:03:37 INFO  [DefaultSecurityFilterChain] Will not secure Mvc [pattern='/auth', POST]
-08.06.2023. 14:03:37 WARN  [WebSecurity         ] You are asking Spring Security to ignore Mvc [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08.06.2023. 14:03:37 INFO  [DefaultSecurityFilterChain] Will not secure Mvc [pattern='/', GET]
-08.06.2023. 14:03:37 WARN  [WebSecurity         ] You are asking Spring Security to ignore Mvc [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08.06.2023. 14:03:37 INFO  [DefaultSecurityFilterChain] Will not secure Mvc [pattern='/webjars/**', GET]
-08.06.2023. 14:03:37 WARN  [WebSecurity         ] You are asking Spring Security to ignore Mvc [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08.06.2023. 14:03:37 INFO  [DefaultSecurityFilterChain] Will not secure Mvc [pattern='/*.html', GET]
-08.06.2023. 14:03:37 WARN  [WebSecurity         ] You are asking Spring Security to ignore Mvc [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08.06.2023. 14:03:37 INFO  [DefaultSecurityFilterChain] Will not secure Mvc [pattern='favicon.ico', GET]
-08.06.2023. 14:03:37 WARN  [WebSecurity         ] You are asking Spring Security to ignore Mvc [pattern='/*/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08.06.2023. 14:03:37 INFO  [DefaultSecurityFilterChain] Will not secure Mvc [pattern='/*/*.html', GET]
-08.06.2023. 14:03:37 WARN  [WebSecurity         ] You are asking Spring Security to ignore Mvc [pattern='/*/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08.06.2023. 14:03:37 INFO  [DefaultSecurityFilterChain] Will not secure Mvc [pattern='/*/*.css', GET]
-08.06.2023. 14:03:37 WARN  [WebSecurity         ] You are asking Spring Security to ignore Mvc [pattern='/*/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08.06.2023. 14:03:37 INFO  [DefaultSecurityFilterChain] Will not secure Mvc [pattern='/*/*.js', GET]
-08.06.2023. 14:03:37 INFO  [OptionalLiveReloadServer] LiveReload server is running on port 35729
-08.06.2023. 14:03:37 INFO  [Http11NioProtocol   ] Starting ProtocolHandler ["https-jsse-nio-8443"]
-08.06.2023. 14:03:37 INFO  [certificate         ] Connector [https-jsse-nio-8443], TLS virtual host [_default_], certificate type [UNDEFINED] configured from [file:/D:/David/Faks/Bezbednost/IT-Employee-Tracker/backend/src/main/resources/keystore/server.p12] using alias [1] and with trust store [null]
-08.06.2023. 14:03:37 INFO  [TomcatWebServer     ] Tomcat started on port(s): 8443 (https) with context path ''
-08.06.2023. 14:03:37 INFO  [ItEmployeeTrackerApplication] Started ItEmployeeTrackerApplication in 4.791 seconds (process running for 5.897)
-08.06.2023. 14:03:43 INFO  [LocalContainerEntityManagerFactoryBean] Closing JPA EntityManagerFactory for persistence unit 'default'
-08.06.2023. 14:03:43 INFO  [SchemaDropperImpl$DelayedDropActionImpl] HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
-08.06.2023. 14:03:43 INFO  [HikariDataSource    ] HikariPool-1 - Shutdown initiated...
-08.06.2023. 14:03:43 INFO  [HikariDataSource    ] HikariPool-1 - Shutdown completed.
+09.06.2023. 12:27:06 INFO  [AuthenticationController] User email@mail.com not found.
+09.06.2023. 12:27:06 INFO  [AuthenticationController] User email@mail.com has been successfully authenticated.
+09.06.2023. 12:27:07 INFO  [UserController      ] User email@mail.com was successfully found!
+09.06.2023. 12:27:10 INFO  [UserController      ] User email@mail.com has successfully edited the data.
+09.06.2023. 12:27:11 INFO  [SkillController     ] Skills successfully loaded!
+09.06.2023. 12:27:14 INFO  [SkillController     ] Successfully changed value of the Java skill.
+09.06.2023. 12:27:14 INFO  [UserController      ] User email@mail.com was successfully found!
+09.06.2023. 12:27:15 INFO  [SkillController     ] Skills successfully loaded!
+09.06.2023. 12:27:19 INFO  [SkillController     ] New skill successfully added!
+09.06.2023. 12:27:19 INFO  [UserController      ] User email@mail.com was successfully found!
+09.06.2023. 12:27:23 INFO  [ProjectController   ] The description of the Mobile App Development project has been successfully modified !
+09.06.2023. 12:27:23 INFO  [UserController      ] User email@mail.com was successfully found!
