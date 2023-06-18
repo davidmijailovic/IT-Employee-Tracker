@@ -4,6 +4,7 @@ import it.employee.tracker.model.User;
 import it.employee.tracker.model.dto.UserTokenState;
 import it.employee.tracker.model.dto.JwtAuthenticationRequest;
 import it.employee.tracker.model.dto.UserDTO;
+import it.employee.tracker.model.response.UserResponse;
 import it.employee.tracker.service.interfaces.HrManagerService;
 import it.employee.tracker.service.interfaces.ProjectManagerService;
 import it.employee.tracker.service.interfaces.SoftwareEngineerService;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,33 +52,36 @@ public class AuthenticationController {
     private static final Logger logger = LogManager.getLogger(AuthenticationController.class);
 
     @PostMapping("/login")
-    public ResponseEntity<UserTokenState> createAuthenticationToken(
+    public ResponseEntity<?> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
 
         User logUser = userService.findByEmail(authenticationRequest.getUsername());
 
-        logger.info("User " + authenticationRequest.getUsername() +  " not found.");
+        logger.info("User " + authenticationRequest.getUsername() +  " found.");
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    authenticationRequest.getUsername(), authenticationRequest.getPassword().concat(logUser.getSalt())));
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getUsername(), authenticationRequest.getPassword().concat(logUser.getSalt())));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            User user = (User) authentication.getPrincipal();
+            String access = tokenUtils.generateAccessToken(user);
+            String refresh = tokenUtils.generateRefreshToken(user);
+            int accessExpiresIn = tokenUtils.getAccessTokenExpiresIn();
+            int refreshExpiresIn = tokenUtils.getRefreshTokenExpiresIn();
 
-        User user = (User) authentication.getPrincipal();
-        String access = tokenUtils.generateAccessToken(user);
-        String refresh = tokenUtils.generateRefreshToken(user);
-        int accessExpiresIn = tokenUtils.getAccessTokenExpiresIn();
-        int refreshExpiresIn = tokenUtils.getRefreshTokenExpiresIn();
+            UserTokenState userTokenState = new UserTokenState();
+            userTokenState.setAccessToken(access);
+            userTokenState.setRefreshToken(refresh);
+            userTokenState.setAccessExpiresIn(accessExpiresIn);
+            userTokenState.setRefreshExpiresIn(refreshExpiresIn);
 
-        UserTokenState userTokenState = new UserTokenState();
-        userTokenState.setAccessToken(access);
-        userTokenState.setRefreshToken(refresh);
-        userTokenState.setAccessExpiresIn(accessExpiresIn);
-        userTokenState.setRefreshExpiresIn(refreshExpiresIn);
+            logger.info("User " + authenticationRequest.getUsername() + " has been successfully authenticated.");
 
-        logger.info("User " + authenticationRequest.getUsername() +  " has been successfully authenticated.");
-
-        return ResponseEntity.ok(userTokenState);
+            return ResponseEntity.ok(userTokenState);
+        } catch(BadCredentialsException e){
+            return (ResponseEntity<?>) ResponseEntity.status(401);
+        }
     }
 
     @PostMapping("/signup")
@@ -116,7 +121,10 @@ public class AuthenticationController {
             return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
         }
         logger.info("User " + registeredUser.getEmail() + " has been successfully registered!");
-        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
+        String successMessage = "User " + registeredUser.getEmail() + " has been successfully registered!";
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("\"" + successMessage + "\"");
     }
 
     public static ResponseEntity<List<String>> ValidateRequest(BindingResult bindingResult) {

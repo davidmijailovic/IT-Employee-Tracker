@@ -58,8 +58,9 @@ public class UserController {
 
         try {
             User editedUser = userService.editUser(forEdit, editInfo, id);
+            UserResponse responseUser = findById(editedUser.getId()).getBody();
             logger.info("User "+ editedUser.getEmail() + " has successfully edited the data.");
-            return new ResponseEntity<>(editedUser, HttpStatus.CREATED);
+            return new ResponseEntity<>(responseUser, HttpStatus.CREATED);
         } catch (AccessDeniedException ex) {
             String errorMessage = "Access denied: " + ex.getMessage();
             return new ResponseEntity<>(errorMessage, HttpStatus.FORBIDDEN);

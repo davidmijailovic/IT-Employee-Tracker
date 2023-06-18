@@ -12,19 +12,17 @@ export class SkillService {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     Authorization: 'Bearer ' + this.authService.getToken(),
+    'Access-Control-Allow-Origin': 'https://localhost:4200/',
+    'X-Content-Type-Options': 'nosniff',
   });
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   fetchSkills(): Observable<any> {
-    return this.http.get<any>(this.apiHost + 'skill', {
-      headers: this.headers,
-    });
+    return this.http.get<any>(this.apiHost + 'skill', {});
   }
 
   addSkill(skill: any): Observable<any> {
-    return this.http.post<any>(this.apiHost + 'skill/add', skill, {
-      headers: this.headers,
-    });
+    return this.http.post<any>(this.apiHost + 'skill/add', skill, {});
   }
 }
