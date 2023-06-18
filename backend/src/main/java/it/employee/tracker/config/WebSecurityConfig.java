@@ -1,10 +1,12 @@
 package it.employee.tracker.config;
 
+import it.employee.tracker.interceptor.ContentOptionsFilter;
 import it.employee.tracker.security.RestAuthenticationEntryPoint;
 import it.employee.tracker.security.TokenAuthenticationFilter;
 import it.employee.tracker.service.implementations.CustomUserDetailsService;
 import it.employee.tracker.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -46,6 +48,7 @@ public class WebSecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
+
     @Autowired
     private TokenUtils tokenUtils;
     @Bean
@@ -53,6 +56,17 @@ public class WebSecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
+
+        http.headers()
+                .xssProtection()
+                .and()
+                .contentSecurityPolicy("default-src 'self'; " +
+                        "script-src 'self' 'unsafe-inline'; " +
+                        "style-src 'self' 'unsafe-inline'; " +
+                        "img-src data:; " +
+                        "upgrade-insecure-requests");
+
+
         http.authorizeRequests().requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/{id}").hasAuthority("FIND_USER_BY_ID_PERMISSION")

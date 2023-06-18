@@ -12,37 +12,32 @@ export class UserService {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     Authorization: 'Bearer ' + this.authService.getToken(),
+    'Access-Control-Allow-Origin': this.apiHost,
   });
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 
-  createUser(registerParams: any): Observable<any> {
-    return this.http.post<any>(this.apiHost + 'auth/signup', registerParams, {
-      headers: this.headers,
-    });
+  createUser(registerParams: any): Observable<string> {
+    return this.http.post<any>(
+      this.apiHost + 'auth/signup',
+      registerParams,
+      {}
+    );
   }
 
   loginUser(user: any): Observable<any> {
-    return this.http.post<any>(this.apiHost + 'auth/login', user, {
-      headers: this.headers,
-    });
+    return this.http.post<any>(this.apiHost + 'auth/login', user, {});
   }
 
   fetchUser(id: string): Observable<any> {
-    return this.http.get<any>(this.apiHost + 'user' + '/' + id, {
-      headers: this.headers,
-    });
+    return this.http.get<any>(this.apiHost + 'user' + '/' + id, {});
   }
 
   editUser(id: any, editInfo: any): Observable<any> {
-    return this.http.put<any>(this.apiHost + 'user/' + id, editInfo, {
-      headers: this.headers,
-    });
+    return this.http.put<any>(this.apiHost + 'user/' + id, editInfo, {});
   }
 
   getByID(id: string): Observable<any[]> {
-    return this.http.get<any[]>(this.apiHost + '/' + id, {
-      headers: this.headers,
-    });
+    return this.http.get<any[]>(this.apiHost + '/' + id, {});
   }
 }

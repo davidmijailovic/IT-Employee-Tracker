@@ -12,13 +12,13 @@ export class ProjectService {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     Authorization: 'Bearer ' + this.authService.getToken(),
+    'Access-Control-Allow-Origin': 'https://localhost:4200/',
+    'X-Content-Type-Options': 'nosniff',
   });
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   editProjectDescription(editInfo: any): Observable<any> {
-    return this.http.put<any>(this.apiHost + 'project', editInfo, {
-      headers: this.headers,
-    });
+    return this.http.put<any>(this.apiHost + 'project', editInfo, {});
   }
 }

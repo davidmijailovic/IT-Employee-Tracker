@@ -10,9 +10,10 @@ import { LoginComponent } from './modules/login/login.component';
 import { NavbarComponent } from './modules/navbar/navbar.component';
 import { RegisterComponent } from './modules/register/register.component';
 import { ToastrModule } from 'ngx-toastr';
-import { JwtInterceptor, JwtModule } from '@auth0/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
+      useClass: AuthInterceptor,
       multi: true,
     },
   ],
